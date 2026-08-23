@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- LINE 分享卡片自訂內容 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="睿立-楊裕憲 董事長 電子名片">
+    <meta property="og:description" content="讀萬卷書，行萬里路；局處說不行，是因為你先找了局處。真正的破局，往往在常規之外。懂法規更要懂戰略順序。">
+    <meta property="og:image" content="https://shift101260.github.io/YANG-CHAIRMAN/avatar.jpg">
+    <meta property="og:image:secure_url" content="https://shift101260.github.io/YANG-CHAIRMAN/avatar.jpg">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://shift101260.github.io/YANG-CHAIRMAN/avatar.jpg">
+    
+    <title>睿立集團 - 楊裕憲 電子名片</title>
+    
+    <!-- PWA Web App 桌面 APP 設定 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="楊裕憲名片">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- iOS 桌面圖示 -->
+    <link rel="apple-touch-icon" href="avatar.jpg">
+    <link rel="icon" type="image/png" href="avatar.jpg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+            min-height: 100vh;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            padding: 24px 12px; 
+            color: #334155;
+        }
+
+        .card-container { 
+            background: rgba(255, 255, 255, 0.97); 
+            backdrop-filter: blur(12px);
+            width: 100%; 
+            max-width: 420px; 
+            border-radius: 28px; 
+            padding: 32px 20px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); 
+            text-align: center; 
+            position: relative;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .avatar { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            object-position: center top;
+            border: 3.5px solid #d97706; 
+            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.25);
+            background: #f1f5f9;
+        }
+
+        .company-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: #d97706;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .name-title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .name { 
+            font-size: 26px; 
+            font-weight: 800; 
+            color: #0f172a; 
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .title { 
+            font-size: 14px; 
+            font-weight: 700;
+            color: #475569; 
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #cbd5e1;
+            line-height: 1;
+        }
+
+        .bio-quote {
+            font-size: 12.5px;
+            color: #475569;
+            background: #f8fafc;
+            border-left: 3px solid #d97706;
+            padding: 10px 14px;
+            border-radius: 0 12px 12px 0;
+            text-align: justify;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .quick-actions { 
+            display: flex; 
+            justify-content: center; 
+            gap: 12px; 
+            margin-bottom: 24px; 
+        }
+
+        .action-card {
+            flex: 1;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.2s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .action-card:active {
+            transform: scale(0.96);
+            background: #f1f5f9;
+        }
+
+        .action-icon {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .action-icon.phone { color: #2563eb; }
+        .action-icon.email { color: #ea580c; }
+        .action-icon.line { color: #06c755; }
+
+        .action-label {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .action-val {
+            font-size: 10px;
+            color: #64748b;
+            word-break: break-all;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .copy-badge {
+            font-size: 9px;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .social-links { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            text-align: left;
+        }
+
+        .link-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 16px 20px; 
+            background: #ffffff; 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: 16px; 
+            text-decoration: none; 
+            color: #1e293b; 
+            font-size: 15px;
+            font-weight: 700; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .link-btn:active {
+            background: #f8fafc;
+        }
+
+        .link-btn-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .link-btn-left i {
+            font-size: 18px;
+            color: #0f766e;
+            width: 22px;
+            text-align: center;
+        }
+
+        .arrow-icon {
+            font-size: 14px;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            background: #f8fafc;
+            border-radius: 0 0 16px 16px;
+            margin-top: -8px;
+            border: 1.5px solid #e2e8f0;
+            border-top: none;
+            padding: 0 16px;
+        }
+
+        .accordion-content.open {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in-out;
+            padding: 20px 16px;
+        }
+
+        .service-header {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+            border-bottom: 2px solid #d97706;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .company-block {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .company-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .company-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f766e;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .company-desc {
+            font-size: 12.5px;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+
+        .service-items {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e293b;
+            background: #ffffff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid #d97706;
+            line-height: 1.5;
+        }
+
+        /* 導覽按鈕區塊 */
+        .nav-grid {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .nav-card {
+            flex: 1;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #1e293b;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-card:active {
+            transform: scale(0.95);
+            background: #f8fafc;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            color: #0f766e;
+            margin-bottom: 6px;
+        }
+
+        .nav-label {
+            font-size: 10.5px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-align: center;
+            color: #334155;
+        }
+
+        /* 圖片彈窗 Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0,0,0,0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qrcode-section { 
+            margin-top: 24px; 
+            padding-top: 20px; 
+            border-top: 1px dashed #cbd5e1; 
+        }
+
+        .qrcode-section img { 
+            width: 140px; 
+            height: 140px; 
+            border-radius: 14px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .url-copy-box {
+            margin-top: 14px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .url-text {
+            font-size: 11px;
+            color: #475569;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+            flex: 1;
+            font-family: monospace;
+        }
+
+        .url-copy-btn {
+            background: #0f766e;
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .url-copy-btn:active {
+            background: #0d655e;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    <div class="avatar-wrapper">
+        <img src="avatar.jpg" alt="楊裕憲 董事長" class="avatar" onerror="this.src='https://via.placeholder.com/150'">
+    </div>
+    
+    <div class="company-tag">睿立集團 RUILI GROUP</div>
+    
+    <div class="name-title-container">
+        <span class="name">楊裕憲</span>
+        <span class="title">董事長 Chairman</span>
+    </div>
+
+    <div class="bio-quote">
+        「讀萬卷書，行萬里路；局處說不行，是因為你先找了局處。真正的破局，往往在常規之外。懂法規更要懂戰略順序。」
+    </div>
+
+    <!-- 快捷動作按鈕 -->
+    <div class="quick-actions">
+        <a href="tel:0987850803" class="action-card" onclick="copyText('0987850803', '電話號碼已複製')">
+            <i class="fa-solid fa-phone action-icon phone"></i>
+            <span class="action-label">電話</span>
+            <span class="action-val">0987850803</span>
+            <span class="copy-badge"><i class="fa-regular fa-copy"></i> 複製/撥打</span>
+        </a>
+
+        <a href="mailto:ruili1101108@gmail.com" class="action-card" onclick="copyText('ruili1101108@gmail.com', '信箱已複製')">
+            <i class="fa-solid fa-envelope action-icon email"></i>
+            <span class="action-label">電子郵件</span>
+            <span class="action-val">ruili110...</span>
+            <span class="copy-badge"><i class="fa-regular fa-copy"></i> 複製/寄信</span>
+        </a>
+
+        <!-- 點擊複製 LINE ID -->
+        <div class="action-card" onclick="copyText('0987850803', 'LINE ID (0987850803) 已複製！')">
+            <i class="fa-brands fa-line action-icon line"></i>
+            <span class="action-label">Line</span>
+            <span class="action-val">0987850803</span>
+            <span class="copy-badge">點擊複製ID</span>
+        </div>
+    </div>
+
+    <!-- 連結項目清單 -->
+    <div class="social-links">
+        <div>
+            <div class="link-btn" onclick="toggleAccordion()">
+                <div class="link-btn-left">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>服務項目</span>
+                </div>
+                <i class="fa-solid fa-chevron-down arrow-icon" id="accordion-arrow"></i>
+            </div>
+            
+            <div class="accordion-content" id="accordion-content">
+                <div class="service-header">
+                    睿立｜工廠法規政策顧問，協助企業轉型與體面退場
+                </div>
+
+                <div class="company-block">
+                    <div class="company-title">
+                        <i class="fa-solid fa-building-user"></i> 睿立資產管理顧問有限公司
+                    </div>
+                    <div class="company-desc">
+                        在法規趨嚴與產業轉型的交會點，睿立為企業提供最具實戰力的「決策支持」。我們擅長在高壓環境下剖析高複雜度案件，當企業面臨行政瓶頸或法規卡關時，能第一時間精準介入、執行緊急救援，協助企業化解危機、突破重圍。
+                    </div>
+                    <div class="service-items">
+                        <strong>服務項目：</strong>地政士相關服務、特定工廠登記/變更、一般工廠登記/變更、用地計劃變更、資產管理、稅務規劃、勞資調解
+                    </div>
+                </div>
+
+                <div class="company-block">
+                    <div class="company-title">
+                        <i class="fa-solid fa-leaf"></i> 元業綠能驗證有限公司
+                    </div>
+                    <div class="company-desc">
+                        面對全球淨零減碳的國際通牒，許多企業陷入「想轉型卻不知從何著手」的困境。元業綠能不僅是企業的綠色顧問，更是具備國際標準主導稽核實力的技術夥伴。我們致力於為企業提供「ESG 無痛轉型」的整合解方，協助企業精準對接政府補助資源，將碳排與政策壓力，轉化為產業升級的最佳動力。
+                    </div>
+                    <div class="service-items">
+                        <strong>服務項目：</strong>ESCO能源技術服務、ISO50001能源管理系統、碳盤查、碳足跡、永續報告書、工廠補助、消防設備、太陽能自建規劃
+                    </div>
+                </div>
+
+                <div class="company-block">
+                    <div class="company-title">
+                        <i class="fa-solid fa-landmark"></i> 天梁不動產股份有限公司
+                    </div>
+                    <div class="company-desc">
+                        專注於一般市場不敢碰、法規高度限制的土地與工廠領域，天梁為客戶提供超脫傳統買賣的「戰略顧問服務」。我們深知土地凝聚著數十年的汗水與心血；面對繁複法規與僵局，天梁在關鍵時刻精準介入，協助企業防禦風險、降至最小傷害，守護資產應有的尊嚴與價值。
+                    </div>
+                    <div class="service-items">
+                        <strong>服務項目：</strong>特殊不動產買賣、資產管理、稅務規劃、體面退場
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://www.yuanyeh.com.tw/aboutus/%E8%AD%89%E7%85%A7-%E8%AD%89%E6%9B%B8" target="_blank" class="link-btn">
+            <div class="link-btn-left">
+                <i class="fa-solid fa-certificate"></i>
+                <span>專業證照</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
+        </a>
+
+        <a href="https://www.yuanyeh.com.tw" target="_blank" class="link-btn">
+            <div class="link-btn-left">
+                <i class="fa-solid fa-globe"></i>
+                <span>官方網站</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
+        </a>
+
+        <a href="https://www.yuanyeh.com.tw/factory" target="_blank" class="link-btn" style="background: #fffbe8; border-color: #fef08a;">
+            <div class="link-btn-left">
+                <i class="fa-solid fa-stethoscope" style="color: #d97706;"></i>
+                <span style="color: #b45309; font-weight: 800;">免費線上工廠健檢</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square arrow-icon" style="color: #d97706;"></i>
+        </a>
+
+        <!-- 四個並排按鈕區塊 -->
+        <div class="nav-grid">
+            <a href="https://www.google.com/maps/search/?api=1&query=高雄市前鎮區振興里林森四路166號" target="_blank" class="nav-card">
+                <i class="fa-solid fa-square-parking nav-icon"></i>
+                <span class="nav-label">停車場<br>入口資訊</span>
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=高雄市苓雅區新光路38號" target="_blank" class="nav-card">
+                <i class="fa-solid fa-location-dot nav-icon"></i>
+                <span class="nav-label">睿立<br>辦公室地址</span>
+            </a>
+            <div class="nav-card" onclick="openModal('elevator.jpg')">
+                <i class="fa-solid fa-elevator nav-icon"></i>
+                <span class="nav-label">電梯搭乘<br>導覽圖</span>
+            </div>
+            <div class="nav-card" onclick="openModal('floor30.jpg')">
+                <i class="fa-solid fa-map-location-dot nav-icon"></i>
+                <span class="nav-label">30樓樓層<br>導覽圖</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="qrcode-section">
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 10px; font-weight: 600;">掃描 QR Code 儲存與分享名片</p>
+        <img id="qrcode-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.yuanyeh.com.tw" alt="QR Code">
+        
+        <div class="url-copy-box">
+            <span class="url-text" id="card-url-text">https://card.ruili.com/chairman</span>
+            <button class="url-copy-btn" onclick="copyCardUrl()">
+                <i class="fa-regular fa-copy"></i> 複製網址
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 圖片彈窗 Modal -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+<div class="toast" id="toast">已複製到剪貼簿</div>
+
+<script>
+    function toggleAccordion() {
+        const content = document.getElementById('accordion-content');
+        const arrow = document.getElementById('accordion-arrow');
+        content.classList.toggle('open');
+        
+        if (content.classList.contains('open')) {
+            arrow.style.transform = 'rotate(180deg)';
+        } else {
+            arrow.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    function copyText(text, message) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(message);
+        }).catch(err => {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showToast(message);
+        });
+    }
+
+    function copyCardUrl() {
+        const currentUrl = window.location.href;
+        copyText(currentUrl, '名片網址已複製！');
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    function openModal(imgSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modal.style.display = "flex";
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').style.display = "none";
+    }
+
+    window.onload = function() {
+        var currentUrl = window.location.href;
+        if(currentUrl.startsWith('http')) {
+            document.getElementById('qrcode-img').src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(currentUrl);
+            document.getElementById('card-url-text').innerText = currentUrl;
+        }
+    }
+</script>
+
+</body>
+</html>
