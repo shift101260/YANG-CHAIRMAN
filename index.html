@@ -587,23 +587,23 @@
             <i class="fa-solid fa-arrow-up-right-from-square arrow-icon" style="color: #d97706;"></i>
         </a>
 
-        <!-- 四個並排按鈕區塊 -->
-        <div class="nav-grid">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=22.609413,120.302845" target="_blank" class="nav-card">
-                <i class="fa-solid fa-square-parking nav-icon"></i>
-                <span class="nav-label">停車場<br>入口資訊</span>
-            </a>
+         <!-- 四個並排按鈕區塊 -->
+        <div class="nav-grid">           
             <a href="https://www.google.com/maps/search/?api=1&query=高雄市苓雅區新光路38號" target="_blank" class="nav-card">
                 <i class="fa-solid fa-location-dot nav-icon"></i>
-                <span class="nav-label">睿立<br>辦公室地圖</span>
+                <span class="nav-label">高雄<br>總公司地圖</span>
             </a>
-            <div class="nav-card" onclick="openModal('elevator.jpg')">
+            <a href="https://www.google.com/maps/search/?api=1&query=臺南市安南區工明路213號" target="_blank" class="nav-card">
+                <i class="fa-solid fa-location-dot nav-icon"></i>
+                <span class="nav-label">台南<br>分公司地圖</span>
+            </a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=22.609413,120.302845" target="_blank" class="nav-card">
+                <i class="fa-solid fa-square-parking nav-icon"></i>
+                <span class="nav-label">高雄總公司<br>停車資訊</span>
+            </a>
+            <div class="nav-card" onclick="openModal('elevator.jpg', 'floor30.jpg')">
                 <i class="fa-solid fa-elevator nav-icon"></i>
-                <span class="nav-label">電梯搭乘<br>導覽圖</span>
-            </div>
-            <div class="nav-card" onclick="openModal('floor30.jpg')">
-                <i class="fa-solid fa-map-location-dot nav-icon"></i>
-                <span class="nav-label">30樓樓層<br>導覽圖</span>
+                <span class="nav-label">高雄總公司<br>辦公室導覽</span>
             </div>
         </div>
     </div>
@@ -613,7 +613,7 @@
         <img id="qrcode-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.yuanyeh.com.tw" alt="QR Code">
         
         <div class="url-copy-box">
-            <span class="url-text" id="card-url-text">https://card.ruili.com/chairman</span>
+            <span class="url-text" id="card-url-text">https://card.ruili.com/cbo</span>
             <button class="url-copy-btn" onclick="copyCardUrl()">
                 <i class="fa-regular fa-copy"></i> 複製網址
             </button>
@@ -621,10 +621,13 @@
     </div>
 </div>
 
-<!-- 圖片彈窗 Modal -->
+<!-- 圖片彈窗 Modal（上方電梯導覽圖、下方30樓導覽圖） -->
 <div id="imageModal" class="modal" onclick="closeModal()">
     <span class="modal-close">&times;</span>
-    <img class="modal-content" id="modalImg">
+    <div class="modal-images-wrapper" onclick="event.stopPropagation()">
+        <img class="modal-content" id="modalImg1" alt="電梯搭乘導覽圖">
+        <img class="modal-content" id="modalImg2" alt="30樓樓層導覽圖" style="display: none;">
+    </div>
 </div>
 
 <div class="toast" id="toast">已複製到剪貼簿</div>
@@ -670,11 +673,21 @@
         }, 2000);
     }
 
-    function openModal(imgSrc) {
+    function openModal(imgSrc1, imgSrc2) {
         const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
-        modal.style.display = "flex";
-        modalImg.src = imgSrc;
+        const modalImg1 = document.getElementById('modalImg1');
+        const modalImg2 = document.getElementById('modalImg2');
+        
+        modal.style.display = "block";
+        modal.scrollTop = 0;
+        modalImg1.src = imgSrc1;
+        
+        if (imgSrc2) {
+            modalImg2.src = imgSrc2;
+            modalImg2.style.display = "block";
+        } else {
+            modalImg2.style.display = "none";
+        }
     }
 
     function closeModal() {
